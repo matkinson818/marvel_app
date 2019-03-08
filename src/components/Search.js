@@ -13,19 +13,28 @@ class Search extends Component {
         this.hash = md5(this.ts + this.priv_key + this.api_key).toString();
     }
 
+    state = {
+      characters: []
+    }
+
     componentDidMount() {
         this.getData();
     }
 
     getData() {
-        axios.get(`http://gateway.marvel.com/v1/public/comics?apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
-        .then(res => console.log(res.data))
+        axios.get(`http://gateway.marvel.com/v1/public/characters?apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
+        .then(res => {
+          // let characters = res.data.data.results;
+          this.setState({characters: res.data.data.results})
+        })
         .then(err => console.log(err))
     }
   render() {
     return (
       <div>
-        
+        <ul>
+          {this.state.characters.map((character, id) => <li key={character.id}>{character.name}</li>)}
+        </ul>
       </div>
     )
   }
