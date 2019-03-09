@@ -23,18 +23,20 @@ class Comics extends Component {
     }
 
     getData() {
-        axios.get(`http://i.annihil.us/u/prod/marvel/i/mg/3/40/4bb4680432f73/portrait_xlarge`)
+        axios.get(`http://gateway.marvel.com/v1/public/comics?apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
         .then(res => {
           // let characters = res.data.data.results;
-         // this.setState({imgs: res.data.data.results.thumbnail.path})
+          this.setState({imgs: res.data.data.results.thumbnail.path})
         })
         .then(err => console.log(err))
     }
 
   render() {
-      //let imgs = imgs.map(img => <img className="img-thumbnail" src={imgs.thumbnail} key={img.id}></img>)
+      let imgs = imgs.map(img => <img className="img-thumbnail" src={imgs.thumbnail} key={img.id}></img>)
     return (
-        <img></img>
+      <ul>
+        {imgs}
+      </ul>
     )
   }
 }
