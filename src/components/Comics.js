@@ -24,10 +24,10 @@ class Comics extends Component {
     }
 
     async getComics() {
-        axios.get(`http://gateway.marvel.com/v1/public/characters?apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
+        axios.get(`http://gateway.marvel.com/v1/public/comics?apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
         .then(res => {
-          // let imgs = res.data.data.results;
-          this.setState({ pictures: res.data.data.results[0].thumbnail });
+
+          this.setState({ pictures: res.data.data.results });
           console.log(res)
         })
         .then(err => console.log(err))
@@ -39,7 +39,9 @@ class Comics extends Component {
     return (
         <div>
             <h1>Hi</h1>
-            <img className="img-thumbnail" src={`${this.state.pictures.path}/portrait_medium.jpg`} />
+                <div>
+                    {this.state.pictures.map(() => <img className="img-thumbnail" src={`${this.state.pictures.thumbnail}/portrait_medium.jpg`} />)}
+                </div>
         </div>  
     )
   }
