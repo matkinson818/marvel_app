@@ -14,28 +14,40 @@ class Search extends Component {
     }
 
     state = {
-      characters: []
+      query: '',
+      results: []
     }
 
-    componentDidMount() {
-        this.getData();
+    getInfo = () => {
+      axios.get(`http://gateway.marvel.com/v1/public/characters?name=${this.state.query}apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
+      .then(res => {
+        // let characters = res.data.data.results;
+        this.setState({results: res.data.data.results})
+      })
+      .then(err => console.log(err))
     }
 
-    getData() {
-        axios.get(`http://gateway.marvel.com/v1/public/characters?apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
-        .then(res => {
-          // let characters = res.data.data.results;
-          this.setState({characters: res.data.data.results})
-        })
-        .then(err => console.log(err))
+    handleInputChange = () => {
+      this.setState({
+        query: this.search.value
+      }, () => {
+        if (this.state.query && this.state.query.length > 1) {
+          if (this.state.query.length % 2 === 0) {
+            this.getInfo()
+          }
+        }
+      })
     }
+
   render() {
     return (
-      <div>
-        <ul>
-          {this.state.characters.map((character, id) => <li key={character.id}>{character.name}</li>)}
-        </ul>
-      </div>
+      <form>
+        <input 
+          type="text"
+          ref={input => this.search = input}
+          onChange = {this.handleInputChange}
+        />
+      </form>
     )
   }
 }

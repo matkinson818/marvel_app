@@ -21,13 +21,11 @@ class Comics extends Component {
                                 <div className="card mb-4 shadow-sm">
                                     <div className="card-body">
                                         <h5>{result.name}</h5>
-                                        <img className="img-thumbnail" src={`${result.thumbnail.path}/portrait_medium.jpg`} />  
+                                        <img className="img-thumbnail" src={`${result.thumbnail.path}/portrait_medium.jpg`} />
+                                        <p>{result.description}</p>  
                                     </div>
                                 </div>
                               </div>
-                            
-                            
-                        
                                 ))}
                             </div>
                     </React.Fragment>
