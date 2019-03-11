@@ -1,48 +1,39 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import { Consumer } from '../context'
 
-let md5 = require('md5')
+// import Comic from './Comic'
+
 
 class Comics extends Component {
 
-    constructor() {
-        super();
-
-        this.ts = new Date();
-        this.api_key = '15d2ff88086bb8aab041f5ea70cc8fbd';
-        this.priv_key = 'd567b22a62562345c4382b7f0ea5e442ebfb514d';
-        this.hash = md5(this.ts + this.priv_key + this.api_key).toString();
-        this.size = 'portrait_medium'
-    }
-
-    state = {
-        pictures: [],
-      }
-
-      componentDidMount() {
-        this.getComics();
-    }
-
-    async getComics() {
-        axios.get(`http://gateway.marvel.com/v1/public/comics?apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
-        .then(res => {
-
-          this.setState({ pictures: res.data.data.results });
-          console.log(res)
-        })
-        .then(err => console.log(err))
-    } 
-
   render() {
-    console.log('hello')
 
     return (
-        <div>
-            <h1>Hi</h1>
-                <div>
-                    {this.state.pictures.map(() => <img className="img-thumbnail" src={`${this.state.pictures.thumbnail}/portrait_medium.jpg`} />)}
-                </div>
-        </div>  
+        <Consumer>
+            {value => {
+                console.log(value);
+                return (
+                    <React.Fragment>
+                        <h1>Comic</h1>
+                            <div className="row">
+                              {value.results.map((result, name, thumbnail) => (
+                                <div className="col-md-6"> 
+                                <div className="card mb-4 shadow-sm">
+                                    <div className="card-body">
+                                        <h5>{result.name}</h5>
+                                        <img className="img-thumbnail" src={`${result.thumbnail.path}/portrait_medium.jpg`} />  
+                                    </div>
+                                </div>
+                              </div>
+                            
+                            
+                        
+                                ))}
+                            </div>
+                    </React.Fragment>
+                )
+            }}
+        </Consumer>
     )
   }
 }
