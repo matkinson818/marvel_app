@@ -27,7 +27,7 @@ export class Provider extends Component {
             .get(`http://gateway.marvel.com/v1/public/characters?apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
             .then(res => {
               this.setState({ results: Object.values(res.data.data.results) });
-              console.log(res.data)
+              //console.log(res.data)
             })
             .then(err => console.log(err))
 
