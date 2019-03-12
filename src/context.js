@@ -24,10 +24,9 @@ export class Provider extends Component {
       componentDidMount() {
         
             axios
-            .get(`http://gateway.marvel.com/v1/public/characters?apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
+            .get(`http://gateway.marvel.com/v1/public/comics?&apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
             .then(res => {
               this.setState({ results: Object.values(res.data.data.results) });
-              //console.log(res.data)
             })
             .then(err => console.log(err))
 

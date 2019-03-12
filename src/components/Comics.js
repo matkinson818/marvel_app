@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { Consumer } from '../context'
 
-// import Comic from './Comic'
-
-
 class Comics extends Component {
 
   render() {
@@ -14,15 +11,17 @@ class Comics extends Component {
                 console.log(value);
                 return (
                     <React.Fragment>
-                        <h1>Comic</h1>
+                        <h1 className="text-center mb-5">Marvel Comics</h1>
                             <div className="row">
-                              {value.results.map((result, name, thumbnail) => (
+                              {value.results.map((result, title, thumbnail) => (
                                 <div className="col-md-6"> 
-                                <div className="card mb-4 shadow-sm">
-                                    <div className="card-body">
-                                        <h5>{result.name}</h5>
-                                        <img className="img-thumbnail" src={`${result.thumbnail.path}/portrait_medium.jpg`} />
-                                        <p>{result.description}</p>  
+                                <div className="card text-white bg-dark mb-3 shadow-sm">
+                                <h5 className="mx-auto card-header">{result.title}</h5>
+                                    <div className="card-body mx-auto">
+                                        <img className="img-thumbnail" src={`${result.thumbnail.path}/standard_xlarge.jpg`} />
+                                        <p>ID: {result.id}</p>  
+                                        <p>Issue Number: {result.issueNumber}</p>  
+                                        <p>Format: {result.format}</p>  
                                     </div>
                                 </div>
                               </div>
