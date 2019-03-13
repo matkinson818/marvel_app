@@ -43,16 +43,22 @@ class Search extends Component {
       <Consumer>
         {value => {
           return(
-            <form onSubmit={this.findHero}>
-              <input 
-                type="text"
-                name="superHero"
-                value={this.state.superHero}
-                ref={input => this.search = input}
-                onChange = {this.onChange}
-              />
-              <button className="btn btn-primary" type="submit"></button>
-            </form>
+            <div className="card bg-light mt-4 mb-4">
+              <form onSubmit = {this.findHero}>
+                <div className="form-group">
+                  <input 
+                      placeholder="Enter Super Hero..."
+                      type="text"
+                      name="superHero"
+                      className="form-control form-control-lg"
+                      value={this.state.superHero}
+                      ref={input => this.search = input}
+                      onChange={this.onChange}
+                    />
+                </div> 
+                <button className="btn btn-outline-dark btn-lg btn-block mb-5" type="submit">Find your Hero</button>
+              </form>
+            </div>  
           ) 
         }}
         

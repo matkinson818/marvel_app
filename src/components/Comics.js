@@ -8,7 +8,6 @@ class Comics extends Component {
     return (
         <Consumer>
             {value => {
-                console.log(value);
                 return (
                     <React.Fragment>
                         <h1 className="text-center mb-5">Marvel Comics</h1>
@@ -18,7 +17,7 @@ class Comics extends Component {
                                 <div className="card text-white bg-dark mb-3 shadow-sm">
                                 <h5 className="mx-auto card-header">{result.title}</h5>
                                     <div className="card-body mx-auto">
-                                        <img className="img-thumbnail" src={`${result.thumbnail.path}/standard_xlarge.jpg`} />
+                                        <img className="img-thumbnail" src={`${result.thumbnail.path}/standard_xlarge.jpg`} alt="Marvel"/>
                                         <p>ID: {result.id}</p>  
                                         <p>Issue Number: {result.issueNumber}</p>  
                                         <p>Format: {result.format}</p>  
