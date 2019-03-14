@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Consumer } from '../context'
 
 import axios from 'axios'
+import Modal from './Modal';
 
 let md5 = require('md5')
 
@@ -22,6 +23,10 @@ class Search extends Component {
       .get(`http://gateway.marvel.com/v1/public/characters?name=${this.state.superHero}&apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
       .then(res => {
         console.log(res.data)
+        this.setState({
+          ...this.state,
+          show: !this.state.show
+      })
       })
       .then(err => console.log(err))
 
@@ -58,6 +63,7 @@ class Search extends Component {
                 </div> 
                 <button className="btn btn-outline-dark btn-lg btn-block mb-5" type="submit">Find your Hero</button>
               </form>
+              <Modal show={this.state.show}/>
             </div>  
           ) 
         }}
