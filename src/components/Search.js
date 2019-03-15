@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import { Consumer } from '../context'
 
 import axios from 'axios'
-import Modal from './Modal';
 
 let md5 = require('md5')
 
 class Search extends Component {
   state = {
     superHero: '',
-    isOpen: false,
   }
 
     constructor() {
@@ -22,21 +20,19 @@ class Search extends Component {
       this.size = 'portrait_medium';
     }
 
-    findHero = (e) => {
+    findHero = (dispatch, e) => {
       axios
       .get(`http://gateway.marvel.com/v1/public/characters?name=${this.state.superHero}&apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
       .then(res => {
         console.log(res.data)
+        dispatch({
+          type: 'FIND_HERO',
+          payload: res.data.data.results
+        })
       })
       .then(err => console.log(err))
 
       e.preventDefault()
-    }
-
-    toggleModal = (e) => {
-      this.setState({ 
-        isOpen: !this.state.isOpen
-      })
     }
 
     onChange = (e) => {
@@ -49,9 +45,10 @@ class Search extends Component {
     return (
       <Consumer>
         {value => {
+          const { dispatch } = value;
           return(
             <div className="card bg-light mt-4 mb-4">
-              <form onSubmit = {this.findHero}>
+              <form onSubmit = {this.findHero.bind(this, dispatch)}>
                 <div className="form-group">
                   <input
                       placeholder="Enter Super Hero..."
@@ -63,16 +60,11 @@ class Search extends Component {
                       onChange={this.onChange}
                     />
                 </div> 
-                <button className="btn btn-outline-dark btn-lg btn-block mb-5" type="submit" onClick={this.toggleModal}>Find your Hero</button>
+                <button className="btn btn-outline-dark btn-lg btn-block mb-5" type="submit">Find your Hero</button>
               </form>
-              <Modal 
-              onClose={this.toggleModal}
-              show={this.state.isOpen}/>
-          
             </div>  
           ) 
-        }}
-        
+        }}      
       </Consumer>
     )
   }

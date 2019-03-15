@@ -5,8 +5,25 @@ let md5 = require('md5')
 
 const Context = React.createContext();
 
-export class Provider extends Component {
+const reducer = (state, action) => {
+  switch(action.type){
+    case 'FIND_HERO':
+    return {
+      ...state,
+      results: action.payload,
+      heading: 'Search Results'
+    };
+    default:
+      return state;
+  }
+}
 
+export class Provider extends Component {
+    state = {
+      results: [],
+      heading: 'Marvel Comics',
+      dispatch: action => this.setState(state => reducer(state, action))
+}
     constructor() {
         super();
 
@@ -17,14 +34,10 @@ export class Provider extends Component {
         this.size = 'portrait_medium';
     }
 
-    state = {
-        results: [],
-    }
-
       componentDidMount() {
         
             axios
-            .get(`http://gateway.marvel.com/v1/public/comics?&apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
+            .get(`http://gateway.marvel.com/v1/public/characters?&apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
             .then(res => {
               this.setState({ results: Object.values(res.data.data.results) });
             })

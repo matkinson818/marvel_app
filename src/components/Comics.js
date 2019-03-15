@@ -19,8 +19,8 @@ class Comics extends Component {
                                     <div className="card-body mx-auto">
                                         <img className="img-thumbnail" src={`${result.thumbnail.path}/standard_xlarge.jpg`} alt="Marvel"/>
                                         <p>ID: {result.id}</p>  
-                                        <p>Issue Number: {result.issueNumber}</p>  
-                                        <p>Format: {result.format}</p>  
+                                        <p>Name: {result.name}</p>  
+                                        <p>Comics Available: {result.comics.available}</p>  
                                     </div>
                                 </div>
                               </div>
