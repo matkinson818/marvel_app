@@ -7,6 +7,10 @@ import Modal from './Modal';
 let md5 = require('md5')
 
 class Search extends Component {
+  state = {
+    superHero: '',
+    isOpen: false,
+  }
 
     constructor() {
       super();
@@ -23,18 +27,16 @@ class Search extends Component {
       .get(`http://gateway.marvel.com/v1/public/characters?name=${this.state.superHero}&apikey=${this.api_key}&hash=${this.hash}&ts=${this.ts}`)
       .then(res => {
         console.log(res.data)
-        this.setState({
-          ...this.state,
-          show: !this.state.show
-      })
       })
       .then(err => console.log(err))
 
       e.preventDefault()
     }
 
-    state = {
-      superHero: '',
+    toggleModal = (e) => {
+      this.setState({ 
+        isOpen: !this.state.isOpen
+      })
     }
 
     onChange = (e) => {
@@ -51,7 +53,7 @@ class Search extends Component {
             <div className="card bg-light mt-4 mb-4">
               <form onSubmit = {this.findHero}>
                 <div className="form-group">
-                  <input 
+                  <input
                       placeholder="Enter Super Hero..."
                       type="text"
                       name="superHero"
@@ -61,9 +63,12 @@ class Search extends Component {
                       onChange={this.onChange}
                     />
                 </div> 
-                <button className="btn btn-outline-dark btn-lg btn-block mb-5" type="submit">Find your Hero</button>
+                <button className="btn btn-outline-dark btn-lg btn-block mb-5" type="submit" onClick={this.toggleModal}>Find your Hero</button>
               </form>
-              <Modal show={this.state.show}/>
+              <Modal 
+              onClose={this.toggleModal}
+              show={this.state.isOpen}/>
+          
             </div>  
           ) 
         }}
