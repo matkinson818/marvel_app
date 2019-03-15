@@ -10,7 +10,7 @@ class Comics extends Component {
             {value => {
                 return (
                     <React.Fragment>
-                        <h1 className="text-center mb-5">Marvel Comics</h1>
+                        <h1 className="text-center mb-5">Marvel Characters</h1>
                             <div className="row">
                               {value.results.map((result, title, thumbnail) => (
                                 <div className="col-md-6"> 
